@@ -1,10 +1,12 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
-
+import dB.Produtosdb;
 import models.Produto;
 
 public class Main {
+    static Produtosdb produtosdb = new Produtosdb();
     public static void main(String[] args) throws Exception {
       System.out.println("--- PEDIDO DE VENDAS ---");
       
@@ -12,6 +14,7 @@ public class Main {
 
     do{
           System.out.println("1 - Cadastrar produto");
+          System.out.println("2 - Lista produtos cadastrados");
           System.out.println("0 - Sair");
 
           Scanner scanner = new Scanner(System.in);
@@ -49,13 +52,24 @@ public class Main {
                 novoProduto.setId(id);
                 novoProduto.setPreco(preco);
                 novoProduto.setDataValidade(dataValidade);
-         
-                System.out.println("Produto criado com sucesso");
-                System.out.println("---ID: " + novoProduto.getId());
-                System.out.println("---Descrição: " + novoProduto.getDescricao());
-                System.out.println("---Preço: " + novoProduto.getPreco());
-                System.out.println("---Data de validade: " + novoProduto.getDataValidade());
+
+                produtosdb.addNovoProduto(novoProduto);
+
+                break;
+
+            }
+            case 2: {
+                List<Produto> listaDeProdutos = produtosdb.getProdutosList();
+                for(Produto produto : listaDeProdutos) {
+                
+                System.out.println("---ID: " + produto.getId());
+                System.out.println("---Descrição: " + produto.getDescricao());
+                System.out.println("---Preço: " + produto.getPreco());
+                System.out.println("---Data de validade: " + produto.getDataValidade());
                 System.out.println("------------------------------------------------------");
+
+                }
+                break;
 
             }
         }
