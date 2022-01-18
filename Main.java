@@ -3,7 +3,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import dB.Produtosdb;
+import dB.UsuariosDB;
+import models.Admin;
+import models.Cliente;
 import models.Produto;
+import models.Usuario;
 
 public class Main {
     static Produtosdb produtosdb = new Produtosdb();
@@ -15,6 +19,9 @@ public class Main {
     do{
           System.out.println("1 - Cadastrar produto");
           System.out.println("2 - Lista produtos cadastrados");
+          System.out.println("3 - Cadastrar usuário Administrador");
+          System.out.println("4 - Cadastrar usuário Cliente");
+          System.out.println("5 - Lista todos os usuários");
           System.out.println("0 - Sair");
 
           Scanner scanner = new Scanner(System.in);
@@ -72,6 +79,47 @@ public class Main {
                 break;
 
             }
+
+            case 3: {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Qual o nome do usuário ADMINISTRADOR: ");
+                String nome = scanner.nextLine();
+
+                Admin novoAdmin = new Admin(nome);
+                UsuariosDB.addNovoUsuario(novoAdmin);
+                
+                break;
+            }
+            case 4: {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Qual o nome do usuário CLIENTE: ");
+                String nome = scanner.nextLine();
+
+                Cliente novoCliente = new Cliente(nome);
+                UsuariosDB.addNovoUsuario(novoCliente);
+               
+                break;
+            }
+            case 5: {
+                
+                System.out.println("-----------------------------------------------");
+                System.out.println("-------LISTAGEM DE USUÁRIOS CADASTRADOS--------");
+                System.out.println("-----------------------------------------------");
+                
+                for(Usuario usuario : UsuariosDB.getUsuariosList()) {
+                   System.out.println("ID: " + usuario.getId());
+                   System.out.println("NOME: " + usuario.getNome());
+                   System.out.println("TIPO: " + usuario.getTipoUsuario());
+                   System.out.println("-----------------------------------------------");
+                }
+               
+                break;
+            }
         }
+        
+        
     }
+
 }
